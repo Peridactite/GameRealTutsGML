@@ -4,21 +4,33 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
     
 /**
  *
  * @author David
  */
 public class Game extends Canvas implements Runnable{
-    
+    //INSERT SERIAL CODE
     public static final int WIDTH = 640;
     public static final int HEIGHT = WIDTH /12 * 9; //Aspect Ratio calculation
     
     private Thread thread;
     private boolean running = false;
     
+    private Random r;
+    private Handler handler;
+    private HUD hud;
     public Game(){
+        handler = new Handler();
+        this.addKeyListener(new KeyInput(handler));
         new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
+        hud = new HUD();
+        r = new Random();
+        handler.addObject(new Player((WIDTH/2)- (Player.SIZE/2), (HEIGHT/2) - (Player.SIZE/2), ID.Player));//adds a centered Player object
+//        handler.addObject(new Player(100,100, ID.BasicEnemy));
+        
+    
     }
     
     public synchronized void start(){
@@ -35,7 +47,9 @@ public class Game extends Canvas implements Runnable{
             e.printStackTrace();
         }
     }
+    @Override
     public void run(){
+        this.requestFocus();
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -57,7 +71,7 @@ public class Game extends Canvas implements Runnable{
             
             if(System.currentTimeMillis() - timer > 1000){ // if it's been more than a second print fps
                 timer += 1000;
-                System.out.println("FPS: " + frames);
+                //System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }
@@ -66,7 +80,8 @@ public class Game extends Canvas implements Runnable{
     }
     
     private void tick(){
-        
+        handler.tick();
+        hud.tick();
     }
     
     private void render(){
@@ -78,11 +93,24 @@ public class Game extends Canvas implements Runnable{
         
         Graphics g = bs.getDrawGraphics();
         
-        g.setColor(Color.green);
+        g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
+        
+        handler.render(g);
+        hud.render(g);
         
         g.dispose();
         bs.show();
+    }
+    
+    public static int clamp(int var, int min, int max){
+        if(var >= max){
+            return var = max;
+        }else if(var <= min){
+            return var = min;
+        }else{
+            return var;
+        }
     }
     
     public static void main(String args[]){
