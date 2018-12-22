@@ -7,13 +7,14 @@ package com.tutorial.main;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.getKeyText;
 
 /**
  *
  * @author peridactite
  */
 public class KeyInput extends KeyAdapter{
-    
+    //BUGFIX: when opposite keys are pressed the player stops moving. Needs a fix.
     private Handler handler;
     
     public KeyInput(Handler handler){
@@ -43,11 +44,9 @@ public class KeyInput extends KeyAdapter{
                 
             }
         }
-        //DELETE
-        //System.out.println(key);
         
         if(key == KeyEvent.VK_ESCAPE){
-            System.exit(1);
+            System.exit(0);
         }
     }
     
@@ -73,7 +72,9 @@ public class KeyInput extends KeyAdapter{
                 
             }
         }
-        System.out.println(key);
+        //DELETE
+        //This just tells you what key you're pressing
+        System.out.println(getKeyText(key));
     }
     
 }

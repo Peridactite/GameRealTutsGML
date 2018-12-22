@@ -7,6 +7,7 @@ package com.tutorial.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -14,13 +15,21 @@ import java.awt.Graphics;
  */
 public class BasicEnemy extends GameObject{
 
+    private Handler handler;
     public static final int SIZE = 16;
     
-    public BasicEnemy(int x, int y, ID id) {
-        super(x, y, id);
+    public BasicEnemy(int x, int y, Handler handler) {
+        super(x, y, ID.BasicEnemy);
+        
+        this.handler = handler;
         
         velX = 5;
         velY = 5;
+    }
+    
+    @Override
+    public Rectangle getBounds(){
+        return new Rectangle(x,y,SIZE,SIZE);
     }
 
     @Override
@@ -30,13 +39,19 @@ public class BasicEnemy extends GameObject{
         
         if(y < 0 || y >= Game.HEIGHT - SIZE) velY *= -1; 
         if(x < 0 || x >= Game.WIDTH - SIZE) velX *= -1; 
+        
+        //ADJUST SIZE LATER FOR Finessing
+        x = Game.clamp(x, 0, Game.WIDTH - SIZE);
+        y = Game.clamp(y, 0, Game.HEIGHT - SIZE);
+        
+        handler.addObject(new Trail(x,y, ID.Trail, Color.RED, SIZE, SIZE, 0.1f, handler));
     
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.RED);
-        g.fillRect(x, y, 16, 16);
+        g.fillRect(x, y, SIZE, SIZE);
     }
     
     

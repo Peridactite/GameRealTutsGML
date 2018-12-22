@@ -21,14 +21,22 @@ public class Game extends Canvas implements Runnable{
     private Random r;
     private Handler handler;
     private HUD hud;
+    private Spawn spawner;
+    
     public Game(){
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
         new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
         hud = new HUD();
+        spawner = new Spawn(handler, hud);
         r = new Random();
-        handler.addObject(new Player((WIDTH/2)- (Player.SIZE/2), (HEIGHT/2) - (Player.SIZE/2), ID.Player));//adds a centered Player object
-//        handler.addObject(new Player(100,100, ID.BasicEnemy));
+        handler.addObject(new Player((WIDTH/2)- (Player.SIZE/2), (HEIGHT/2) - (Player.SIZE/2), handler));//adds a centered Player object
+        handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), handler));
+
+        
+//        for(int i = 0; i < 20; i++){
+//            handler.addObject(new BasicEnemy(r.nextInt(WIDTH),r.nextInt(HEIGHT), handler));
+//        }
         
     
     }
@@ -75,13 +83,13 @@ public class Game extends Canvas implements Runnable{
                 frames = 0;
             }
         }
-        stop();
-        
+        stop();        
     }
     
     private void tick(){
         handler.tick();
         hud.tick();
+        spawner.tick();
     }
     
     private void render(){
@@ -97,7 +105,7 @@ public class Game extends Canvas implements Runnable{
         g.fillRect(0, 0, WIDTH, HEIGHT);
         
         handler.render(g);
-        hud.render(g);
+        hud.render(g);//i had commented this out 6/10
         
         g.dispose();
         bs.show();
@@ -114,6 +122,7 @@ public class Game extends Canvas implements Runnable{
     }
     
     public static void main(String args[]){
+        System.out.println("START");
         new Game();
     }
 }
