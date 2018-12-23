@@ -25,7 +25,7 @@ public class Trail extends GameObject{
     
     //trailDuration or life = anything from .001 to .1 
     
-    public Trail(int x, int y, ID id, Color color, int width, int height, float duration, Handler handler) {
+    public Trail(float x, float y, ID id, Color color, int width, int height, float duration, Handler handler) {
         super(x, y, id);
         this.handler = handler;
         this.color = color;
@@ -48,7 +48,7 @@ public class Trail extends GameObject{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setComposite(makeTransparent(alpha));
         g.setColor(color);
-        g.fillRect(x,y,width,height);
+        g.fillRect((int)x,(int)y,width,height);
         
         //you need to watch this part of vid with sound find out what's happening
         g2d.setComposite(makeTransparent(1));

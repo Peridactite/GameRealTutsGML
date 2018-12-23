@@ -16,11 +16,12 @@ import java.awt.Rectangle;
 public class BasicEnemy extends GameObject{
 
     private Handler handler;
-    public static final int SIZE = 16;
+    public static int size;
     
-    public BasicEnemy(int x, int y, Handler handler) {
+    public BasicEnemy(float x, float y, Handler handler) {
         super(x, y, ID.BasicEnemy);        
         this.handler = handler;
+        size = 16;
         
         velX = 5;
         velY = 5;
@@ -28,7 +29,7 @@ public class BasicEnemy extends GameObject{
     
     @Override
     public Rectangle getBounds(){
-        return new Rectangle(x,y,SIZE,SIZE);
+        return new Rectangle((int)x,(int)y,size,size);
     }
 
     @Override
@@ -36,20 +37,20 @@ public class BasicEnemy extends GameObject{
         x += velX;
         y += velY;
         
-        if(y < 0 || y >= Game.HEIGHT - SIZE) velY *= -1; 
-        if(x < 0 || x >= Game.WIDTH - SIZE) velX *= -1; 
+        if(y < 0 || y >= Game.HEIGHT - size) velY *= -1; 
+        if(x < 0 || x >= Game.WIDTH - size) velX *= -1; 
         
         //ADJUST SIZE LATER FOR Finessing
-        x = Game.clamp(x, 0, Game.WIDTH - SIZE);
-        y = Game.clamp(y, 0, Game.HEIGHT - SIZE);
+        x = Game.clamp(x, 0, Game.WIDTH - size);
+        y = Game.clamp(y, 0, Game.HEIGHT - size);
         
-        handler.addObject(new Trail(x,y, ID.Trail, Color.RED, SIZE, SIZE, 0.1f, handler));
+        handler.addObject(new Trail(x,y, ID.Trail, Color.RED, size, size, 0.1f, handler));
     
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.RED);
-        g.fillRect(x, y, SIZE, SIZE);
+        g.fillRect((int)x, (int)y, size, size);
     }     
 }

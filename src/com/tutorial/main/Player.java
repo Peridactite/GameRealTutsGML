@@ -21,7 +21,7 @@ public class Player extends GameObject{
     int x2Bound = 200;
     int y2Bound = 200;
     
-    public Player (int x, int y, Handler handler){
+    public Player (float x, float y, Handler handler){
         super(x,y,ID.Player);
         this.handler = handler;
         
@@ -37,7 +37,7 @@ public class Player extends GameObject{
      */
     @Override
     public Rectangle getBounds(){
-        return new Rectangle(x,y,32,32);
+        return new Rectangle((int)x,(int)y,32,32);
     }
     
     @Override
@@ -81,7 +81,7 @@ public class Player extends GameObject{
         for(int i = 0; i < handler.object.size(); i++){
             GameObject tempObject = handler.object.get(i);
             
-            if(tempObject.getId() == ID.BasicEnemy ||tempObject.getId() == ID.FastEnemy){
+            if(tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy|| tempObject.getId() == ID.SmartEnemy){
                 if(getBounds().intersects(tempObject.getBounds())){
                     //Collision Code
                     HUD.HEALTH -= 2;
@@ -94,11 +94,11 @@ public class Player extends GameObject{
     public void render(Graphics g){
         if(id == ID.Player){
             g.setColor(Color.WHITE);
-            g.fillRect(x,y,SIZE,SIZE);
+            g.fillRect((int)x,(int)y,SIZE,SIZE);
         }
         if(id == ID.Player2){
             g.setColor(Color.WHITE);
-            g.fillRect(x,y,SIZE,SIZE);
+            g.fillRect((int)x,(int)y,SIZE,SIZE);
         }
         
     }
