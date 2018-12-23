@@ -13,17 +13,17 @@ import java.awt.Rectangle;
  *
  * @author peridactite
  */
-public class BasicEnemy extends GameObject{
+public class FastEnemy extends GameObject{
 
     private Handler handler;
     public static final int SIZE = 16;
     
-    public BasicEnemy(int x, int y, Handler handler) {
-        super(x, y, ID.BasicEnemy);        
+    public FastEnemy(int x, int y, Handler handler) {
+        super(x, y, ID.FastEnemy);        
         this.handler = handler;
         
-        velX = 5;
-        velY = 5;
+        velX = 2;
+        velY = 8;
     }
     
     @Override
@@ -43,13 +43,13 @@ public class BasicEnemy extends GameObject{
         x = Game.clamp(x, 0, Game.WIDTH - SIZE);
         y = Game.clamp(y, 0, Game.HEIGHT - SIZE);
         
-        handler.addObject(new Trail(x,y, ID.Trail, Color.RED, SIZE, SIZE, 0.1f, handler));
+        handler.addObject(new Trail(x,y, ID.Trail, Color.CYAN, SIZE, SIZE, 0.1f, handler));
     
     }
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.RED);
+        g.setColor(Color.CYAN);
         g.fillRect(x, y, SIZE, SIZE);
     }     
 }
