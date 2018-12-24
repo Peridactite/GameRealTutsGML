@@ -10,6 +10,7 @@ public enum ID {
     BasicEnemy(),
     Trail(),
     FastEnemy(),
+    Mace(),
     SmartEnemy();
 }
 

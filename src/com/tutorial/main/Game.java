@@ -29,7 +29,9 @@ public class Game extends Canvas implements Runnable{
         hud = new HUD();
         spawner = new Spawn(handler, hud);
         r = new Random();
-        handler.addObject(new Player((WIDTH/2)- (Player.size/2), (HEIGHT/2) - (Player.size/2), handler));//adds a centered Player object
+        GameObject player = new Player((WIDTH/2)- (Player.size/2), (HEIGHT/2) - (Player.size/2), handler);
+        handler.addObject(player);//adds a centered Player object
+        handler.addObject(new Mace(50, 32, Color.CYAN, ID.Mace, player, handler)); //int ropeLength, int size, Color color, ID id, GameObject player, Handler handler
         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), handler));
         new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
         
