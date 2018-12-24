@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Player extends GameObject{
     
-    public static final int SIZE = 32;
+    public static int size;
     Random r = new Random();
     Handler handler;
     
@@ -24,6 +24,7 @@ public class Player extends GameObject{
     public Player (float x, float y, Handler handler){
         super(x,y,ID.Player);
         this.handler = handler;
+        size = 32;
         
         // having vel equal 0 is not necessary. 
         //Represents Speed of the player/movement
@@ -71,8 +72,8 @@ public class Player extends GameObject{
         }
         
         //ADJUST SIZE LATER FOR Finessing
-        x = Game.clamp(x, 0, Game.WIDTH - SIZE);
-        y = Game.clamp(y, 0, Game.HEIGHT - SIZE);
+        x = Game.clamp(x, 0, Game.WIDTH - size);
+        y = Game.clamp(y, 0, Game.HEIGHT - size);
         
         collision();
     }
@@ -94,11 +95,11 @@ public class Player extends GameObject{
     public void render(Graphics g){
         if(id == ID.Player){
             g.setColor(Color.WHITE);
-            g.fillRect((int)x,(int)y,SIZE,SIZE);
+            g.fillRect((int)x,(int)y,size,size);
         }
         if(id == ID.Player2){
             g.setColor(Color.WHITE);
-            g.fillRect((int)x,(int)y,SIZE,SIZE);
+            g.fillRect((int)x,(int)y,size,size);
         }
         
     }

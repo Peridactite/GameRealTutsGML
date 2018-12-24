@@ -16,7 +16,7 @@ public class Game extends Canvas implements Runnable{
     public static final int HEIGHT = WIDTH /12 * 9; //Aspect Ratio calculation
     
     private Thread thread;
-    private boolean running = false;
+    private boolean running = false; 
     
     private Random r;
     private Handler handler;
@@ -26,13 +26,12 @@ public class Game extends Canvas implements Runnable{
     public Game(){
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
-        new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
         hud = new HUD();
         spawner = new Spawn(handler, hud);
         r = new Random();
-        handler.addObject(new Player((WIDTH/2)- (Player.SIZE/2), (HEIGHT/2) - (Player.SIZE/2), handler));//adds a centered Player object
+        handler.addObject(new Player((WIDTH/2)- (Player.size/2), (HEIGHT/2) - (Player.size/2), handler));//adds a centered Player object
         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), handler));
-
+        new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
         
 //        for(int i = 0; i < 20; i++){
 //            handler.addObject(new BasicEnemy(r.nextInt(WIDTH),r.nextInt(HEIGHT), handler));
